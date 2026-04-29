@@ -1,0 +1,123 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const PRODUCTS = [
+  {
+    id: "aixl",
+    title: "AIXL Academy",
+    desc: "Upskill your workforce with enterprise-grade AI training. Interactive coding environments and real-world projects.",
+    link: "https://aixl.academy",
+    image: "/images/product_aixl.png",
+  },
+  {
+    id: "analytics",
+    title: "Aurelia Analytics",
+    desc: "Predictive dashboards that connect directly to your data lake. Spot trends before they become obvious.",
+    link: "#",
+    image: "/images/product_analytics.png",
+  },
+];
+
+export default function Products() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Pinning the left content
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 1024px)", () => {
+        ScrollTrigger.create({
+          trigger: containerRef.current,
+          start: "top 10%",
+          end: "bottom bottom",
+          pin: leftColRef.current,
+          pinSpacing: false,
+          onUpdate: (self) => {
+            if (self.progress > 0.5) {
+              setActiveIndex(1);
+            } else {
+              setActiveIndex(0);
+            }
+          }
+        });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section id="products" className="py-20 bg-slate-900 text-white relative border-t border-slate-800" ref={containerRef}>
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="text-sky-400 font-bold tracking-widest uppercase text-sm mb-16 text-center lg:text-left">
+          Products & Platforms
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 relative">
+          {/* LEFT COLUMN - Sticky Details */}
+          <div ref={leftColRef} className="lg:h-[70vh] flex flex-col justify-center relative z-20">
+            {PRODUCTS.map((prod, i) => (
+              <div
+                key={prod.id}
+                className={cn(
+                  "absolute lg:static top-0 left-0 right-0 transition-all duration-700 ease-in-out",
+                  activeIndex === i ? "opacity-100 translate-y-0 relative" : "opacity-0 translate-y-8 absolute pointer-events-none lg:hidden",
+                  "lg:block lg:opacity-0 lg:absolute lg:top-1/2 lg:-translate-y-1/2",
+                  activeIndex === i && "lg:opacity-100 lg:translate-y-[-50%]"
+                )}
+              >
+                <h2 className="text-4xl md:text-6xl font-heading font-extrabold tracking-tight mb-8">
+                  {prod.title}
+                </h2>
+                <p className="text-xl text-slate-300 font-medium mb-12 max-w-md leading-relaxed">
+                  {prod.desc}
+                </p>
+                <a
+                  href={prod.link}
+                  className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-900 bg-white rounded-full hover:bg-sky-400 hover:text-slate-900 transition-all duration-300 shadow-xl hover:shadow-sky-400/30"
+                >
+                  Explore Product
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </a>
+              </div>
+            ))}
+          </div>
+
+          {/* RIGHT COLUMN - Scrolling Images */}
+          <div className="flex flex-col gap-[10vh] lg:gap-[40vh] py-[5vh] lg:py-[15vh]">
+            {PRODUCTS.map((prod, i) => (
+              <div
+                key={`img-${prod.id}`}
+                className={cn(
+                  "relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-700",
+                  activeIndex === i ? "scale-100 opacity-100 border-4 border-slate-700" : "scale-95 opacity-30 lg:opacity-40 border-4 border-transparent blur-[2px]"
+                )}
+              >
+                <div className="absolute top-0 left-0 right-0 h-12 bg-slate-800 flex items-center px-4 border-b border-slate-700 gap-2 z-10">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                </div>
+                <img
+                  src={prod.image}
+                  alt={prod.title}
+                  className="w-full h-auto pt-12 object-cover bg-slate-100"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
