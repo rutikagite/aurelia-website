@@ -242,14 +242,15 @@ export default function Services() {
               >
                 {col.map((item, j) => (
                   <div
-                    key={j}
-                    className={cn(
-                      "glass-card rounded-2xl border border-white/60 shadow-xl backdrop-blur-xl bg-white/70 flex items-center justify-center transition-transform hover:scale-105 hover:bg-white/90",
-                      item.type === "icon"
-                        ? "aspect-square p-4"
-                        : COLS === 7 ? "min-h-[100px] p-4" : "min-h-[120px] p-6"
-                    )}
-                  >
+  key={j}
+  className={cn(
+    "glass-card rounded-2xl border border-white/60 shadow-xl backdrop-blur-xl bg-white/70 flex items-center justify-center transition-all duration-300 hover:scale-105 hover:bg-white/90",
+
+    item.type === "icon"
+      ? "w-[60px] h-[60px] md:w-[70px] md:h-[70px] mx-auto p-3"
+      : "w-full min-h-[140px] md:min-h-[160px] p-5 md:p-6"
+  )}
+>
                     {item.type === "icon" ? (
                       item.icon
                     ) : (
