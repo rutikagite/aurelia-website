@@ -48,7 +48,7 @@ export default function Loader() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-bold text-3xl shadow-xl"
+            className="w-16 h-16 rounded-2xl bg-blue-brand text-white flex items-center justify-center font-bold text-3xl shadow-xl"
           >
             AI
           </motion.div>
@@ -57,9 +57,9 @@ export default function Loader() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="text-3xl font-heading font-bold tracking-tight text-slate-900"
+              className="text-3xl font-heading font-bold tracking-tight text-navy"
             >
-              Aurelia Innovatives
+              Aurelia Innovators
             </motion.div>
           )}
         </div>

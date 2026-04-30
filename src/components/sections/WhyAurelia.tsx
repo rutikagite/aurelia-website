@@ -66,36 +66,36 @@ export default function WhyAurelia() {
   }, []);
 
   return (
-    <section id="why" className="py-20 bg-slate-50 border-t border-slate-100" ref={containerRef}>
+    <section id="why" className="py-20 bg-off-white border-t border-blue-wash" ref={containerRef}>
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-navy tracking-tight">
             Why Aurelia Innovators?
           </h2>
         </div>
 
         <div className="relative pt-8 lg:pt-12 pb-8">
           {/* Connecting Line (Desktop only) */}
-          <div className="hidden lg:block absolute top-[3.5rem] left-8 right-8 h-[2px] bg-slate-200 z-0" />
-          <div 
+          <div className="hidden lg:block absolute top-[3.5rem] left-8 right-8 h-[2px] bg-blue-pale z-0" />
+          <div
             ref={lineRef}
-            className="hidden lg:block absolute top-[3.5rem] left-8 right-8 h-[2px] bg-gradient-to-r from-blue-600 via-teal-400 to-indigo-500 z-0 origin-left"
+            className="hidden lg:block absolute top-[3.5rem] left-8 right-8 h-[2px] bg-gradient-to-r from-blue-brand via-blue-soft to-blue-deep z-0 origin-left"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
             {PILLARS.map((pillar, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 ref={(el) => {
                   if (el) cardsRef.current[i] = el;
                 }}
                 className="flex flex-col items-center text-center group"
               >
-                <div className="w-12 h-12 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-400 mb-4 group-hover:border-blue-300 group-hover:text-blue-600 transition-colors duration-500 shadow-sm relative z-10">
+                <div className="w-12 h-12 rounded-full bg-white border-2 border-blue-pale flex items-center justify-center text-grey-mid mb-4 group-hover:border-blue-soft group-hover:text-blue-brand transition-colors duration-500 shadow-sm relative z-10">
                   <CheckCircle2 className="w-5 h-5" />
                 </div>
-                <h3 className="font-heading font-bold text-lg text-slate-900 mb-2">{pillar.title}</h3>
-                <p className="text-slate-600 text-sm font-medium leading-relaxed max-w-[250px] mx-auto">{pillar.desc}</p>
+                <h3 className="font-heading font-bold text-lg text-navy mb-2">{pillar.title}</h3>
+                <p className="text-grey-dark text-sm font-medium leading-relaxed max-w-[250px] mx-auto">{pillar.desc}</p>
               </div>
             ))}
           </div>

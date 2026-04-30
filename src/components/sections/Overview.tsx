@@ -13,7 +13,7 @@ const CARDS = [
     body: "End-to-end AI engineering. Agentic systems, LLM fine-tuning, LangChain, GenAI — built production-ready.",
     cta: "Explore services",
     href: "#services",
-    color: "bg-blue-500",
+    color: "bg-blue-brand",
   },
   {
     id: "02",
@@ -21,7 +21,7 @@ const CARDS = [
     body: "Strategic AI advisory. We map your business to the right AI architecture before a single line is written.",
     cta: "View consultancy",
     href: "#consultancy",
-    color: "bg-teal-500",
+    color: "bg-blue-soft",
   },
   {
     id: "03",
@@ -29,7 +29,7 @@ const CARDS = [
     body: "Vetted AI engineers, on-site or remote. Your team, extended with specialists who ship.",
     cta: "See resources",
     href: "#resources",
-    color: "bg-indigo-500",
+    color: "bg-blue-deep",
   },
   {
     id: "04",
@@ -37,7 +37,7 @@ const CARDS = [
     body: "Purpose-built AI products — analytics intelligence, AI readiness assessments, and more.",
     cta: "See products",
     href: "#products",
-    color: "bg-sky-500",
+    color: "bg-blue-mid",
   },
 ];
 
@@ -79,10 +79,10 @@ export default function Overview() {
   return (
     <section
       ref={containerRef}
-      className="py-24 bg-white overflow-hidden border-t border-slate-100"
+      className="py-24 bg-white overflow-hidden border-t border-blue-wash"
     >
       <div className="container mx-auto px-6 max-w-7xl mb-12">
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h2 className="text-3xl font-extrabold text-navy tracking-tight">
           What we do
         </h2>
       </div>
@@ -95,7 +95,7 @@ export default function Overview() {
           {[...CARDS, ...CARDS].map((card, idx) => (
             <div
               key={`${card.id}-${idx}`}
-              className="group relative w-[270px] h-[220px] shrink-0 bg-slate-50/50 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-200"
+              className="group relative w-[270px] h-[220px] shrink-0 bg-blue-wash/50 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-blue-pale"
             >
               {/* Top border accent */}
               <div
@@ -114,10 +114,10 @@ export default function Overview() {
               />
 
               <div className="p-6 h-full flex flex-col justify-between relative z-10 transition-transform duration-500 group-hover:-translate-y-2">
-                <h3 className="font-bold text-xl text-slate-900 leading-tight">
+                <h3 className="font-bold text-xl text-navy leading-tight">
                   {card.title}
                 </h3>
-                <p className="text-sm text-slate-600 font-medium leading-relaxed transition-all duration-300 group-hover:opacity-0 group-hover:-translate-y-2">
+                <p className="text-sm text-grey-dark font-medium leading-relaxed transition-all duration-300 group-hover:opacity-0 group-hover:-translate-y-2">
                   {card.body}
                 </p>
               </div>
@@ -126,7 +126,7 @@ export default function Overview() {
               <div className="absolute inset-0 bg-white/70 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 flex items-center justify-center">
                 <Link
                   href={card.href}
-                  className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-full font-bold text-sm translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 hover:bg-blue-600 hover:shadow-lg"
+                  className="flex items-center gap-2 px-6 py-3 bg-navy text-white rounded-full font-bold text-sm translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 hover:bg-blue-brand hover:shadow-lg"
                 >
                   {card.cta}
                   <ArrowRight className="w-4 h-4" />
@@ -138,4 +138,4 @@ export default function Overview() {
       </div>
     </section>
   );
-}
+}

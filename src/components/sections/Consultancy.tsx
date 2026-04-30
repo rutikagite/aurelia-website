@@ -38,7 +38,6 @@ export default function Consultancy() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Group cards into batches of 2
       for (let i = 0; i < cardsRef.current.length; i += 2) {
         const batch = [cardsRef.current[i], cardsRef.current[i + 1]].filter(Boolean);
 
@@ -64,15 +63,25 @@ export default function Consultancy() {
   }, []);
 
   return (
-    <section id="consultancy" className="py-32 backdrop-blur-xl relative border-t border-white/10">
+    <section
+      id="consultancy"
+      className="py-32 bg-transparent relative border-t border-white/10"
+    >
       <div className="container mx-auto px-6 max-w-7xl">
+        {/* Section header */}
         <div className="mb-20 text-center max-w-4xl mx-auto">
-          <div className="text-teal-600 font-bold tracking-widest uppercase text-sm mb-4">AI Consultancy</div>
-          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-slate-900 tracking-tight mb-6">
+          {/* Label — was text-blue-brand (check if var resolves on dark bg, keeping explicit blue) */}
+          <div className="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4">
+            AI Consultancy
+          </div>
+          {/* Heading — was text-off-white, keeping but ensuring it resolves clearly */}
+          <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-white tracking-tight mb-6">
             Strategy Before a Single <br className="hidden sm:block" /> Line of Code.
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 font-medium">
-            We assess your data, systems, and goals — <br className="hidden sm:block" />
+          {/* Subheading — was text-blue-soft (could be dark); now slate-300 for guaranteed readability */}
+          <p className="text-lg md:text-xl text-slate-300 font-medium">
+            We assess your data, systems, and goals —{" "}
+            <br className="hidden sm:block" />
             then prescribe an AI roadmap that actually fits.
           </p>
         </div>
@@ -84,21 +93,39 @@ export default function Consultancy() {
               ref={(el) => {
                 if (el) cardsRef.current[i] = el;
               }}
-              className="group p-8 rounded-3xl h-full border border-white/15 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 relative overflow-hidden"
+              className="group p-8 rounded-3xl h-full border transition-all duration-500 hover:-translate-y-2 relative overflow-hidden"
               style={{
-                background: "rgba(255, 255, 255, 0.08)",
-                backdropFilter: "blur(24px) saturate(180%)",
-                WebkitBackdropFilter: "blur(24px) saturate(180%)",
+                /* Lighter glass so card is distinguishable from near-black bg */
+                background: "rgba(255, 255, 255, 0.06)",
+                backdropFilter: "blur(16px) saturate(120%)",
+                WebkitBackdropFilter: "blur(16px) saturate(120%)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
               }}
             >
-              {/* Blur overlay hover effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-50/80 to-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+              {/* Hover glow overlay — was bg-blue-wash/100 which made card opaque light */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 rounded-3xl"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(59,130,246,0.15), rgba(147,197,253,0.08))",
+                }}
+              />
 
-              <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 group-hover:bg-teal-600 group-hover:text-white transition-all duration-500 shadow-sm">
+              {/* Number badge — was bg-blue-wash (light bg). Now dark glass with blue text */}
+              <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-400/30 text-blue-400 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white group-hover:border-blue-500 transition-all duration-500">
                 0{i + 1}
               </div>
-              <h3 className="font-heading font-bold text-xl text-slate-900 mb-2">{card.title}</h3>
-              <p className="text-slate-600 font-medium text-sm leading-relaxed">{card.body}</p>
+
+              {/* Card title — was text-navy (dark on dark card). Now text-white */}
+              <h3 className="font-heading font-bold text-xl text-white mb-2">
+                {card.title}
+              </h3>
+
+              {/* Card body — was text-grey-dark (too dark). Now text-slate-300 */}
+              <p className="text-slate-300 font-medium text-sm leading-relaxed">
+                {card.body}
+              </p>
             </div>
           ))}
         </div>

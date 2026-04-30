@@ -14,24 +14,24 @@ const MODELS = [
     title: "On-Site Deployment",
     desc: "Our engineers work within your premises. Full-time, accountable, embedded.",
     icon: Building2,
-    color: "text-blue-600",
-    bg: "bg-blue-100",
+    color: "text-blue-brand",
+    bg: "bg-blue-wash",
   },
   {
     id: "remote",
     title: "Remote Dedicated",
     desc: "Same commitment, zero location friction. Timezone-matched when required.",
     icon: MonitorSmartphone,
-    color: "text-teal-600",
-    bg: "bg-teal-100",
+    color: "text-blue-soft",
+    bg: "bg-blue-wash",
   },
   {
     id: "hybrid",
     title: "Hybrid Sprints",
     desc: "Short-cycle, high-output engagements. Ideal for POCs and fast prototyping.",
     icon: Zap,
-    color: "text-indigo-600",
-    bg: "bg-indigo-100",
+    color: "text-blue-deep",
+    bg: "bg-blue-pale",
   },
 ];
 
@@ -158,11 +158,11 @@ export default function Resources() {
   }, []);
 
   return (
-    <section id="resources" className="py-10 lg:py-12 bg-slate-50 relative overflow-hidden" ref={containerRef}>
+    <section id="resources" className="py-10 lg:py-12 bg-off-white relative overflow-hidden" ref={containerRef}>
       {/* Background Soft Gradients */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-blue-100 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-teal-50 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/3"></div>
+        <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-blue-wash rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
+        <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-blue-pale rounded-full blur-[100px] translate-y-1/3 -translate-x-1/3"></div>
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
@@ -171,21 +171,21 @@ export default function Resources() {
           {/* LEFT: STICKY INFO */}
           <div className="w-full lg:w-5/12 relative">
             <div className="lg:sticky lg:top-40 flex flex-col items-start text-left mb-8 lg:mb-0">
-              <div className="text-indigo-600 font-bold tracking-widest uppercase text-sm mb-6 flex items-center gap-2">
+              <div className="text-blue-mid font-bold tracking-widest uppercase text-sm mb-6 flex items-center gap-2">
                 <Activity className="w-4 h-4" />
                 Resource Augmentation
               </div>
-              <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.15]">
+              <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-navy tracking-tight mb-6 leading-[1.15]">
                 The AI Talent You Need.<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">When You Need It.</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-brand to-blue-soft">When You Need It.</span>
               </h2>
-              <p className="text-lg text-slate-600 font-medium mb-10 max-w-md">
+              <p className="text-lg text-grey-dark font-medium mb-10 max-w-md">
                 Hire dedicated AI engineers who integrate with your team — on-site or remote, for sprints or long-term builds.
               </p>
 
               <a
                 href="#contact"
-                className="group inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-slate-900 rounded-2xl hover:bg-blue-600 transition-all duration-300 shadow-xl hover:shadow-blue-600/30 hover:-translate-y-0.5"
+                className="group inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-navy rounded-2xl hover:bg-blue-brand transition-all duration-300 shadow-xl hover:shadow-blue-brand/30 hover:-translate-y-0.5"
               >
                 Request Talent
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -208,17 +208,17 @@ export default function Resources() {
                       <model.icon className="w-8 h-8" />
                     </div>
                     <div>
-                      <h3 className="font-heading font-bold text-xl text-slate-900 mb-2">{model.title}</h3>
-                      <p className="text-slate-600 font-medium text-sm leading-relaxed">{model.desc}</p>
+                      <h3 className="font-heading font-bold text-xl text-navy mb-2">{model.title}</h3>
+                      <p className="text-grey-dark font-medium text-sm leading-relaxed">{model.desc}</p>
                     </div>
 
                     {/* Specialized Animations inside blocks */}
                     {i === 1 && (
-                      <div className="absolute top-6 right-6 w-3 h-3 rounded-full bg-teal-400 animate-pulse shadow-[0_0_12px_rgba(45,212,191,0.8)]" />
+                      <div className="absolute top-6 right-6 w-3 h-3 rounded-full bg-blue-brand animate-pulse shadow-[0_0_12px_rgba(42,109,217,0.8)]" />
                     )}
                     {i === 2 && (
-                      <div className="absolute bottom-0 left-8 right-8 h-1 bg-slate-100 rounded-t-lg overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="h-full bg-indigo-500 w-full origin-left animate-[progress_2s_ease-in-out_infinite]" />
+                      <div className="absolute bottom-0 left-8 right-8 h-1 bg-blue-wash rounded-t-lg overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="h-full bg-blue-brand w-full origin-left animate-[progress_2s_ease-in-out_infinite]" />
                       </div>
                     )}
                   </div>
@@ -228,7 +228,7 @@ export default function Resources() {
                     <div
                       ref={(el) => { if (el) linesRef.current[i] = el; }}
                       className={cn("w-full h-full bg-gradient-to-r to-transparent",
-                        i === 0 ? "from-blue-200" : i === 1 ? "from-teal-200" : "from-indigo-200"
+                        i === 0 ? "from-blue-soft" : i === 1 ? "from-blue-soft" : "from-blue-soft"
                       )}
                     />
                   </div>

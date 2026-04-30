@@ -11,16 +11,24 @@ gsap.registerPlugin(ScrollTrigger);
 const PRODUCTS = [
   {
     id: "aixl",
-    title: "AIXL Academy",
-    desc: "Upskill your workforce with enterprise-grade AI training. Interactive coding environments and real-world projects.",
-    link: "https://aixl.academy",
+    subLabel: "AI Capability Building Ecosystem",
+    title: "AIXL Suite",
+    desc: "An integrated platform for organisations building internal AI capability — from structured learning to hands-on project execution.",
+    link: "https://aixlacademy.com",
     image: "/images/product_aixl.png",
+    modules: [
+      { name: "AIXL Academy", link: "https://aixlacademy.com" },
+      { name: "AIXL Labs", link: "https://aixlacademy.com/labs" },
+      { name: "AIXL Skills", link: "https://aixlacademy.com/skills" },
+      { name: "AIXL Flight", link: "https://aixlacademy.com/flight" },
+    ]
   },
   {
     id: "analytics",
-    title: "Aurelia Analytics",
-    desc: "Predictive dashboards that connect directly to your data lake. Spot trends before they become obvious.",
-    link: "#",
+    subLabel: "AI-Powered Business Intelligence",
+    title: "Analytics Intelligence Platform",
+    desc: "Transforms raw data into clear, actionable intelligence — connecting signal detection, correlation analysis, and predictive insights.",
+    link: "https://aureliainnovators.com/products/analytics",
     image: "/images/product_analytics.png",
   },
 ];
@@ -57,11 +65,14 @@ export default function Products() {
   }, []);
 
   return (
-    <section id="products" className="py-20 bg-slate-900 text-white relative border-t border-slate-800" ref={containerRef}>
+    <section id="products" className="py-20 bg-navy text-white relative border-t border-blue-deep" ref={containerRef}>
       <div className="container mx-auto px-6 max-w-7xl">
-        <div className="text-sky-400 font-bold tracking-widest uppercase text-sm mb-16 text-center lg:text-left">
-          Products & Platforms
+        <div className="text-blue-soft font-bold tracking-widest uppercase text-sm mb-4 text-center lg:text-left">
+          Products
         </div>
+        <h2 className="text-3xl md:text-4xl font-heading font-bold mb-16 text-center lg:text-left">
+          Built Internally. Designed for Real Use.
+        </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 relative">
           {/* LEFT COLUMN - Sticky Details */}
@@ -76,17 +87,37 @@ export default function Products() {
                   activeIndex === i && "lg:opacity-100 lg:translate-y-[-50%]"
                 )}
               >
-                <h2 className="text-4xl md:text-6xl font-heading font-extrabold tracking-tight mb-8">
+                <div className="text-blue-soft font-bold text-sm uppercase tracking-wider mb-4">
+                  {prod.subLabel}
+                </div>
+                <h2 className="text-4xl md:text-5xl font-heading font-extrabold tracking-tight mb-6">
                   {prod.title}
                 </h2>
-                <p className="text-xl text-slate-300 font-medium mb-12 max-w-md leading-relaxed">
+                <p className="text-lg text-blue-pale font-medium mb-8 max-w-md leading-relaxed">
                   {prod.desc}
                 </p>
+
+                {prod.modules && (
+                  <div className="flex flex-wrap gap-2 mb-10">
+                    {prod.modules.map((mod) => (
+                      <a
+                        key={mod.name}
+                        href={mod.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-1 bg-blue-deep border border-blue-mid rounded-md text-xs font-semibold text-blue-pale hover:bg-blue-mid hover:text-white transition-colors"
+                      >
+                        {mod.name}
+                      </a>
+                    ))}
+                  </div>
+                )}
+
                 <a
                   href={prod.link}
-                  className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-900 bg-white rounded-full hover:bg-sky-400 hover:text-slate-900 transition-all duration-300 shadow-xl hover:shadow-sky-400/30"
+                  className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-navy bg-white rounded-full hover:bg-blue-brand hover:text-white transition-all duration-300 shadow-xl hover:shadow-blue-brand/30"
                 >
-                  Explore Product
+                  {prod.id === "aixl" ? "Explore AIXL Suite" : "Explore Analytics Platform"}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </a>
               </div>
@@ -103,7 +134,7 @@ export default function Products() {
                   activeIndex === i ? "scale-100 opacity-100 border-4 border-slate-700" : "scale-95 opacity-30 lg:opacity-40 border-4 border-transparent blur-[2px]"
                 )}
               >
-                <div className="absolute top-0 left-0 right-0 h-12 bg-slate-800 flex items-center px-4 border-b border-slate-700 gap-2 z-10">
+                <div className="absolute top-0 left-0 right-0 h-12 bg-blue-deep flex items-center px-4 border-b border-blue-mid gap-2 z-10">
                   <div className="w-3 h-3 rounded-full bg-red-500/80" />
                   <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                   <div className="w-3 h-3 rounded-full bg-green-500/80" />
@@ -111,7 +142,7 @@ export default function Products() {
                 <img
                   src={prod.image}
                   alt={prod.title}
-                  className="w-full h-auto pt-12 object-cover bg-slate-100"
+                  className="w-full h-auto pt-12 object-cover bg-blue-wash"
                 />
               </div>
             ))}

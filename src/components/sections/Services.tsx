@@ -1,274 +1,211 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, cloneElement, ReactElement } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { cn } from "@/lib/utils";
 import {
-  Database, Server, Workflow, Bot, BrainCircuit, Code2,
-  TerminalSquare, Network, Cpu, LayoutTemplate, Box, Boxes,
-  GitBranch, Layers, Zap, Shield, Globe, Search, FileCode
+  Bot, Database, TerminalSquare, Network, BrainCircuit, Server,
+  Workflow, LayoutTemplate, Code2, Layers, Boxes, Cpu,
+  Globe, GitBranch, Shield, Search, Zap, Box, FileCode
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const FLOW_STEPS = [
-  { num: "1", title: "Discovery", desc: "Understand your use case" },
-  { num: "2", title: "Architecture", desc: "Design the right stack" },
-  { num: "3", title: "Development", desc: "Build with LangChain, Agentic AI, fine-tuned LLMs" },
-  { num: "4", title: "Deployment", desc: "Ship to production environments" },
-  { num: "5", title: "Iteration", desc: "Improve with real-world feedback" },
+const CAPABILITIES = [
+  { text: "Agentic AI Systems", icon: <Bot className="w-5 h-5" /> },
+  { text: "RAG Pipelines", icon: <Database className="w-5 h-5" /> },
+  { text: "Prompt Engineering", icon: <TerminalSquare className="w-5 h-5" /> },
+  { text: "LLM Fine-Tuning", icon: <BrainCircuit className="w-5 h-5" /> },
+  { text: "AI Integration & APIs", icon: <Server className="w-5 h-5" /> },
+  { text: "Vector Search", icon: <Search className="w-5 h-5" /> },
+  { text: "LangChain Dev", icon: <Workflow className="w-5 h-5" /> },
+  { text: "GenAI Applications", icon: <LayoutTemplate className="w-5 h-5" /> },
+  { text: "Python AI Engineering", icon: <Code2 className="w-5 h-5" /> },
+  { text: "Multi-Agent Systems", icon: <Layers className="w-5 h-5" /> },
+  { text: "Production Deployment", icon: <Cpu className="w-5 h-5" /> },
+  { text: "Model Evaluation", icon: <Zap className="w-5 h-5" /> },
+  { text: "Cloud AI Infra", icon: <Globe className="w-5 h-5" /> },
+  { text: "CI/CD for AI", icon: <GitBranch className="w-5 h-5" /> },
+  { text: "AI Security", icon: <Shield className="w-5 h-5" /> },
+  { text: "Semantic Search", icon: <Search className="w-5 h-5" /> },
+  { text: "Vector DBs", icon: <Box className="w-5 h-5" /> },
+  { text: "API Development", icon: <FileCode className="w-5 h-5" /> },
+  { text: "Edge Deployment", icon: <Network className="w-5 h-5" /> },
 ];
 
-// ─── 5-COLUMN VERSION ────────────────────────────────────────────────────────
-const TOOLS_AND_CAPS_5 = [
-  // Col 1
-  [
-    { type: "cap", text: "Agentic AI Systems" },
-    { type: "icon", icon: <Bot className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "RAG Pipelines" },
-    { type: "icon", icon: <Database className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "Prompt Engineering" },
-    { type: "icon", icon: <TerminalSquare className="w-8 h-8 text-slate-400" /> },
-  ],
-  // Col 2
-  [
-    { type: "icon", icon: <Network className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "LLM Fine-Tuning" },
-    { type: "icon", icon: <BrainCircuit className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "AI Integration & APIs" },
-    { type: "icon", icon: <Server className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "Vector Search" },
-  ],
-  // Col 3 (middle — staggered)
-  [
-    { type: "cap", text: "LangChain Development" },
-    { type: "icon", icon: <Workflow className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "GenAI Applications" },
-    { type: "icon", icon: <LayoutTemplate className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "Python AI Engineering" },
-    { type: "icon", icon: <Code2 className="w-8 h-8 text-slate-400" /> },
-  ],
-  // Col 4
-  [
-    { type: "icon", icon: <Layers className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "Multi-Agent Systems" },
-    { type: "icon", icon: <Boxes className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "Production Deployment" },
-    { type: "icon", icon: <Cpu className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "Model Evaluation" },
-  ],
-  // Col 5
-  [
-    { type: "cap", text: "Cloud AI Infra" },
-    { type: "icon", icon: <Globe className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "CI/CD for AI" },
-    { type: "icon", icon: <GitBranch className="w-8 h-8 text-slate-400" /> },
-    { type: "cap", text: "AI Security" },
-    { type: "icon", icon: <Shield className="w-8 h-8 text-slate-400" /> },
-  ],
-];
-
-// ─── 7-COLUMN VERSION ────────────────────────────────────────────────────────
-const TOOLS_AND_CAPS_7 = [
-  // Col 1
-  [
-    { type: "cap", text: "Agentic AI Systems" },
-    { type: "icon", icon: <Bot className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "RAG Pipelines" },
-    { type: "icon", icon: <Database className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "Prompt Engineering" },
-  ],
-  // Col 2
-  [
-    { type: "icon", icon: <Network className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "LLM Fine-Tuning" },
-    { type: "icon", icon: <BrainCircuit className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "AI Integration & APIs" },
-    { type: "icon", icon: <Server className="w-7 h-7 text-slate-400" /> },
-  ],
-  // Col 3
-  [
-    { type: "cap", text: "LangChain Dev" },
-    { type: "icon", icon: <Workflow className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "GenAI Apps" },
-    { type: "icon", icon: <LayoutTemplate className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "Python AI Eng." },
-  ],
-  // Col 4 (middle — staggered)
-  [
-    { type: "icon", icon: <Layers className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "Multi-Agent Systems" },
-    { type: "icon", icon: <Boxes className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "Production Deploy" },
-    { type: "icon", icon: <Cpu className="w-7 h-7 text-slate-400" /> },
-  ],
-  // Col 5
-  [
-    { type: "cap", text: "Cloud AI Infra" },
-    { type: "icon", icon: <Globe className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "CI/CD for AI" },
-    { type: "icon", icon: <GitBranch className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "AI Security" },
-  ],
-  // Col 6
-  [
-    { type: "icon", icon: <Shield className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "Semantic Search" },
-    { type: "icon", icon: <Search className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "Model Evaluation" },
-    { type: "icon", icon: <Zap className="w-7 h-7 text-slate-400" /> },
-  ],
-  // Col 7
-  [
-    { type: "cap", text: "Vector DBs" },
-    { type: "icon", icon: <Box className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "API Development" },
-    { type: "icon", icon: <FileCode className="w-7 h-7 text-slate-400" /> },
-    { type: "cap", text: "Edge Deployment" },
-  ],
-];
-
-// ─── PICK YOUR VARIANT ───────────────────────────────────────────────────────
-// Change these two lines to switch between 5 and 7 columns:
-const COLS = 7;                          // 5 or 7
-const TOOLS_AND_CAPS = TOOLS_AND_CAPS_7; // TOOLS_AND_CAPS_5 or TOOLS_AND_CAPS_7
-
-export default function Services() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const blurTargetRef = useRef<HTMLDivElement>(null);
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const columnsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  const midCol = Math.floor(COLS / 2); // 2 for 5-col, 3 for 7-col
+function MarqueeRow({ items, direction = "left", speed = 40 }: { items: typeof CAPABILITIES, direction?: "left" | "right", speed?: number }) {
+  const rowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.to(blurTargetRef.current, {
-        filter: "blur(16px)",
-        opacity: 0.3,
-        scale: 0.95,
-        scrollTrigger: {
-          trigger: scrollerRef.current,
-          start: "top 70%",
-          end: "top 10%",
-          scrub: true,
-        },
-      });
+    if (!rowRef.current) return;
 
-      columnsRef.current.forEach((col, i) => {
-        if (!col) return;
-        gsap.to(col, {
-          y: i === midCol ? -150 : -80,
-          scrollTrigger: {
-            trigger: scrollerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      });
-    }, containerRef);
+    const row = rowRef.current;
+    const totalWidth = row.scrollWidth / 2;
 
-    return () => ctx.revert();
-  }, [midCol]);
+    const animation = gsap.to(row, {
+      x: direction === "left" ? -totalWidth : 0,
+      duration: speed,
+      ease: "none",
+      repeat: -1,
+      startAt: { x: direction === "left" ? 0 : -totalWidth }
+    });
 
-  // Tailwind grid classes (must be complete strings, not dynamic)
-  const gridClass = COLS === 7
-    ? "grid grid-cols-2 md:grid-cols-7 gap-4 md:gap-5 pt-[30vh]"
-    : "grid grid-cols-2 md:grid-cols-5 gap-5 md:gap-6 pt-[30vh]";
+    return () => {
+      animation.kill();
+    };
+  }, [direction, speed]);
 
   return (
-    <section id="services" className="relative bg-slate-50 min-h-screen" ref={containerRef}>
-
-      {/* PINNED BACKGROUND CONTENT */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden z-0">
-        <div ref={blurTargetRef} className="container mx-auto px-6 max-w-7xl pt-24 pb-12 transition-all will-change-transform">
-          <div className="text-center max-w-4xl mx-auto mb-16">
-            <div className="text-blue-600 font-bold tracking-widest uppercase text-sm mb-6">AI Development Services</div>
-            <h2 className="text-4xl md:text-6xl font-heading font-extrabold text-slate-900 tracking-tight mb-8">
-              From Idea to <br className="hidden sm:block" /> Production AI.
-            </h2>
-            <p className="text-xl md:text-2xl text-slate-600 font-medium">
-              We handle the full engineering lifecycle — <br className="hidden md:block" />
-              so your team focuses on outcomes, not infrastructure.
-            </p>
+    <div className="overflow-hidden py-4">
+      <div ref={rowRef} className="flex gap-4 whitespace-nowrap w-fit">
+        {[...items, ...items].map((item, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-3 px-6 py-4 bg-white border border-blue-pale rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:border-blue-brand/50 hover:bg-blue-wash group shrink-0"
+          >
+            <div className="p-2 bg-blue-wash rounded-xl group-hover:bg-blue-pale group-hover:text-blue-brand transition-colors text-grey-dark">
+              {item.icon}
+            </div>
+            <span className="font-bold text-navy text-sm md:text-base tracking-tight">
+              {item.text}
+            </span>
           </div>
-
-          {/* FLOW TIMELINE */}
-          <div className="hidden lg:flex justify-between relative px-12 mb-12">
-            <div className="absolute top-8 left-24 right-24 h-[2px] bg-slate-200 z-0" />
-            <div className="absolute top-8 left-24 right-24 h-[2px] bg-blue-600 z-0 origin-left scale-x-100" />
-            {FLOW_STEPS.map((step, i) => (
-              <div key={i} className="relative z-10 flex flex-col items-center w-48 text-center group">
-                <div className="w-16 h-16 rounded-2xl border-2 border-blue-600 bg-blue-600 flex items-center justify-center font-bold text-xl text-white mb-6 shadow-md">
-                  {step.num}
-                </div>
-                <h3 className="font-heading font-bold text-xl text-slate-900 mb-3">{step.title}</h3>
-                <p className="text-sm text-slate-600 font-medium leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* MOBILE FLOW TIMELINE */}
-          <div className="lg:hidden flex flex-col gap-6">
-            {FLOW_STEPS.map((step, i) => (
-              <div key={i} className="flex items-start gap-4">
-                <div className="shrink-0 w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-md">
-                  {step.num}
-                </div>
-                <div>
-                  <h3 className="font-heading font-bold text-lg text-slate-900 mb-1">{step.title}</h3>
-                  <p className="text-slate-600 text-sm font-medium">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
+    </div>
+  );
+}
 
-      {/* SCROLLING FOREGROUND (THE TILES) */}
-      <div ref={scrollerRef} className="relative z-10 w-full pb-[20vh] -mt-[20vh]">
-        <div className="container mx-auto px-4 max-w-[100vw] overflow-hidden">
-          <div className={gridClass}>
-            {TOOLS_AND_CAPS.map((col, i) => (
+const PROCESS_STEPS = [
+  {
+    title: "AI Strategy & Architecture",
+    desc: "We define the model mix, data flow, and agentic workflows to solve your specific business problem.",
+    icon: <BrainCircuit className="w-6 h-6" />,
+  },
+  {
+    title: "Engineering & RAG Pipelines",
+    desc: "Building high-performance retrieval systems and robust data ingestion for grounded AI responses.",
+    icon: <Database className="w-6 h-6" />,
+  },
+  {
+    title: "Agentic Workflow Development",
+    desc: "Implementing autonomous agentic systems that can reason, use tools, and execute complex tasks.",
+    icon: <Bot className="w-6 h-6" />,
+  },
+  {
+    title: "Production Deployment",
+    desc: "Containerizing, deploying, and monitoring AI systems at scale with full observability and security.",
+    icon: <Server className="w-6 h-6" />,
+  },
+];
+
+export default function Services() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      setMousePos({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Split capabilities into 3 rows
+  const row1 = CAPABILITIES.slice(0, 7);
+  const row2 = CAPABILITIES.slice(7, 13);
+  const row3 = CAPABILITIES.slice(13);
+  return (
+    <section
+      id="services"
+      ref={sectionRef}
+      className="py-24 bg-off-white relative overflow-hidden"
+    >
+      {/* Dynamic Background Spotlight */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-50 transition-opacity duration-1000"
+        style={{
+          background: `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, rgba(42, 109, 217, 0.05), transparent 80%)`,
+        }}
+      />
+
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        <div className="text-center max-w-4xl mx-auto mb-20">
+          <div className="text-blue-brand font-bold tracking-widest uppercase text-sm mb-6">AI Development Services</div>
+          <h2 className="text-4xl md:text-6xl font-heading font-extrabold text-navy tracking-tight mb-8">
+            From Idea to Production AI.
+          </h2>
+          <p className="text-xl md:text-2xl text-grey-dark font-medium">
+            We handle the full engineering lifecycle<br className="hidden md:block" />
+            so your team focuses on outcomes, not infrastructure.
+          </p>
+        </div>
+
+        {/* PROCESS STEPS */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
+          {PROCESS_STEPS.map((step, i) => {
+            const Icon = step.icon.type;
+
+            return (
               <div
                 key={i}
-                ref={(el) => { if (el) columnsRef.current[i] = el; }}
-                className={cn(
-                  "flex flex-col gap-4 md:gap-5",
-                  i === midCol ? "md:pt-32" : "md:pt-0"
-                )}
+                className="group relative overflow-hidden rounded-3xl border border-blue-pale bg-white p-8 transition-all duration-300 ease-out shadow-md hover:shadow-2xl hover:-translate-y-1"
               >
-                {col.map((item, j) => (
-                  <div
-  key={j}
-  className={cn(
-    "glass-card rounded-2xl border border-white/60 shadow-xl backdrop-blur-xl bg-white/70 flex items-center justify-center transition-all duration-300 hover:scale-105 hover:bg-white/90",
+                {/* Big background icon */}
+                <div className="pointer-events-none absolute -right-6 -top-6 select-none text-navy opacity-[0.06] transition-all duration-700 group-hover:opacity-[0.12] group-hover:scale-110 group-hover:-rotate-12">
+                  <Icon size={120} strokeWidth={1} />
+                </div>
 
-    item.type === "icon"
-      ? "w-[60px] h-[60px] md:w-[70px] md:h-[70px] mx-auto p-3"
-      : "w-full min-h-[140px] md:min-h-[160px] p-5 md:p-6"
-  )}
->
-                    {item.type === "icon" ? (
-                      item.icon
-                    ) : (
-                      <h4 className={cn(
-                        "font-bold text-slate-800 text-center leading-tight",
-                        COLS === 7 ? "text-sm md:text-base" : "text-lg md:text-xl"
-                      )}>
-                        {item.text}
-                      </h4>
-                    )}
+                {/* Content */}
+                <div className="relative z-10 h-full flex flex-col">
+                  <div className="mb-6">
+                    <div className="inline-flex p-3 rounded-2xl bg-blue-wash text-blue-brand transition-all duration-300 group-hover:scale-110 group-hover:bg-blue-brand group-hover:text-white shadow-sm">
+                      {step.icon}
+                    </div>
                   </div>
-                ))}
+
+                  <h3 className="text-2xl font-heading font-bold leading-tight text-navy mb-4">
+                    {step.title}
+                  </h3>
+
+                  <p className="text-base leading-relaxed text-grey-dark group-hover:text-black transition-colors duration-300">
+                    {step.desc}
+                  </p>
+                </div>
+
+                {/* Hover overlay */}
+                <div className="pointer-events-none absolute inset-0 opacity-0 bg-gradient-to-br from-blue-soft/10 to-transparent transition-opacity duration-300 group-hover:opacity-100" />
               </div>
-            ))}
-          </div>
+            );
+          })}
+        </div>
+
+        <div className="text-center max-w-4xl mx-auto mb-16">
+          <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-navy tracking-tight">
+            Our Technical Expertise.
+          </h2>
         </div>
       </div>
 
+      {/* MARQUEE SECTION */}
+      <div className="relative py-10">
+        {/* Background Gradients for fade effect */}
+        <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-off-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-off-white to-transparent z-10 pointer-events-none" />
+
+        <div className="flex flex-col gap-2">
+          <MarqueeRow items={row1} direction="left" speed={30} />
+          <MarqueeRow items={row2} direction="right" speed={35} />
+          <MarqueeRow items={row3} direction="left" speed={25} />
+        </div>
+      </div>
+
+      {/* Subtle Background Elements */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-blue-pale/30 rounded-full blur-[120px] pointer-events-none z-0" />
     </section>
   );
 }
