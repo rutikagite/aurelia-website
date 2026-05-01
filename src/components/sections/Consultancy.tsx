@@ -30,7 +30,7 @@ export default function Consultancy() {
   return (
     <section
       id="consultancy"
-      className="py-[var(--section-py)] bg-transparent relative border-t border-white/10"
+      className="py-30 md:py-30 bg-transparent relative border-t border-white/10"
     >
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Section header */}

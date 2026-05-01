@@ -25,7 +25,10 @@ export default function FlowAnimation() {
   const pathsRef = useRef<(SVGPathElement | null)[]>([]);
   const [tokens, setTokens] = useState(0);
 
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -78,7 +81,7 @@ export default function FlowAnimation() {
           );
         })}
         {/* Particles */}
-        {EDGES.map((edge, i) => (
+        {mounted && EDGES.map((edge, i) => (
           <circle key={`p-${i}`} r="1.2" fill="#2563eb">
             <animateMotion
               dur={`${1.5 + Math.random()}s`}
@@ -87,6 +90,7 @@ export default function FlowAnimation() {
             />
           </circle>
         ))}
+
       </svg>
 
       {NODES.map((node, i) => (
