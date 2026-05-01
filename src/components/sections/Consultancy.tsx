@@ -1,71 +1,36 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+import AuditAnimation from "../ui/consultancy/AuditAnimation";
+import PrioritizationAnimation from "../ui/consultancy/PrioritizationAnimation";
+import ArchitectureAnimation from "../ui/consultancy/ArchitectureAnimation";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const CARDS = [
+const KINETIC_CARDS = [
   {
+    id: "01",
     title: "AI Readiness Audit",
-    body: "Is your data, team, and infrastructure ready for AI? We'll tell you exactly where you stand.",
+    desc: "Is your data, team, and infrastructure ready for AI? We'll tell you exactly where you stand.",
+    animation: <AuditAnimation />,
   },
   {
+    id: "02",
     title: "Use Case Prioritisation",
-    body: "Not every problem needs AI. We identify the ones where AI creates disproportionate value.",
+    desc: "Not every problem needs AI. We identify the ones where AI creates disproportionate value.",
+    animation: <PrioritizationAnimation />,
   },
   {
+    id: "03",
     title: "Architecture Design",
-    body: "Model selection, data pipelines, infrastructure — designed before the first sprint begins.",
-  },
-  {
-    title: "Build vs Buy Analysis",
-    body: "Custom model or third-party API? We make the decision defensible, not just fast.",
-  },
-  {
-    title: "AI Governance & Ethics",
-    body: "Compliance, bias audits, explainability frameworks — responsible AI from day one.",
-  },
-  {
-    title: "Ongoing AI Advisory",
-    body: "Retained strategic guidance as your AI scales, evolves, and creates new questions.",
+    desc: "Model selection, data pipelines, infrastructure — designed before the first sprint begins.",
+    animation: <ArchitectureAnimation />,
   },
 ];
 
 export default function Consultancy() {
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      for (let i = 0; i < cardsRef.current.length; i += 2) {
-        const batch = [cardsRef.current[i], cardsRef.current[i + 1]].filter(Boolean);
-
-        gsap.fromTo(
-          batch,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: batch[0],
-              start: "top 85%",
-            },
-          }
-        );
-      }
-    });
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       id="consultancy"
-      className="py-32 bg-transparent relative border-t border-white/10"
+      className="py-[var(--section-py)] bg-transparent relative border-t border-white/10"
     >
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Section header */}
@@ -86,47 +51,44 @@ export default function Consultancy() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CARDS.map((card, i) => (
-            <div
-              key={i}
-              ref={(el) => {
-                if (el) cardsRef.current[i] = el;
-              }}
-              className="group p-8 rounded-3xl h-full border transition-all duration-500 hover:-translate-y-2 relative overflow-hidden"
-              style={{
-                /* Lighter glass so card is distinguishable from near-black bg */
-                background: "rgba(255, 255, 255, 0.06)",
-                backdropFilter: "blur(16px) saturate(120%)",
-                WebkitBackdropFilter: "blur(16px) saturate(120%)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
-              }}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {KINETIC_CARDS.map((card, i) => (
+            <motion.div
+              key={card.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8, ease: "easeOut" }}
+              className="group relative h-full flex flex-col"
             >
-              {/* Hover glow overlay — was bg-blue-wash/100 which made card opaque light */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 rounded-3xl"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(59,130,246,0.15), rgba(147,197,253,0.08))",
-                }}
-              />
+              {/* Card Container with Perspective */}
+              <div className="relative flex-1 rounded-[2.5rem] border border-white/10 bg-transparent backdrop-blur-2xl overflow-hidden transition-all duration-500 hover:border-blue-500/30 hover:bg-white/[0.02] flex flex-col">
 
-              {/* Number badge — was bg-blue-wash (light bg). Now dark glass with blue text */}
-              <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-400/30 text-blue-400 flex items-center justify-center font-bold text-xl mb-6 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white group-hover:border-blue-500 transition-all duration-500">
-                0{i + 1}
+                {/* Animation Area (TOP) — Light Cinematic Canvas */}
+                <div className="relative w-full h-[320px] bg-slate-50/80 p-8 flex items-center justify-center overflow-hidden border-b border-slate-200">
+
+                  <div className="w-full h-full scale-[1.1] transform-gpu">
+                    {card.animation}
+                  </div>
+                </div>
+
+                {/* Header Area (BOTTOM) — Transparent */}
+                <div className="p-10 flex-1 flex flex-col bg-transparent">
+                  <h3 className="text-2xl font-heading font-bold text-white mb-4 leading-tight tracking-tight">
+                    {card.title}
+                  </h3>
+                  <p className="text-slate-400 font-medium text-base leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">
+                    {card.desc}
+                  </p>
+                </div>
+
+                {/* Background Glow Overlay */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none">
+                  <div className="absolute -top-20 -left-20 w-80 h-80 bg-blue-500/5 blur-[120px] rounded-full" />
+                </div>
               </div>
 
-              {/* Card title — was text-navy (dark on dark card). Now text-white */}
-              <h3 className="font-heading font-bold text-xl text-white mb-2">
-                {card.title}
-              </h3>
-
-              {/* Card body — was text-grey-dark (too dark). Now text-slate-300 */}
-              <p className="text-slate-300 font-medium text-sm leading-relaxed">
-                {card.body}
-              </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -47,7 +47,7 @@ export default function Navbar() {
           <div className="hidden sm:flex flex-col">
             {/* Was text-navy — invisible on dark bg. Now text-white */}
             <span className="font-heading font-bold text-lg leading-none tracking-tight text-white">
-              Aurelia Innovators
+              Aurelia Innovatives
             </span>
             {/* Was text-grey-mid — too dark. Now text-slate-400 */}
             <span className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase mt-0.5">

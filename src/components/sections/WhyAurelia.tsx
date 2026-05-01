@@ -70,7 +70,7 @@ export default function WhyAurelia() {
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-heading font-extrabold text-navy tracking-tight">
-            Why Aurelia Innovators?
+            Why Aurelia Innovatives?
           </h2>
         </div>
 

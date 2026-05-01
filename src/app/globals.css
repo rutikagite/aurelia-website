@@ -3,7 +3,7 @@
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
-  
+
   /* Brand Colors */
   --color-navy: #0A1628;
   --color-blue-deep: #0F2952;
@@ -34,19 +34,25 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  background-image: 
+  background-image:
     radial-gradient(at 0% 0%, #EEF5FF 0px, transparent 50%),
     radial-gradient(at 100% 0%, #DDEAF5 0px, transparent 50%);
   background-attachment: fixed;
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   letter-spacing: -0.02em;
 }
 
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -90,4 +96,3 @@ html:not(.ready) [data-anim] {
 [data-anim] {
   transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
 }
-

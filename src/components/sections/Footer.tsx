@@ -13,7 +13,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-xl text-white leading-none tracking-tight">
-                  Aurelia Innovators
+                  Aurelia Innovatives
                 </span>
               </div>
             </Link>
@@ -51,14 +51,14 @@ export default function Footer() {
             <ul className="flex flex-col gap-3 text-sm">
               <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-soft transition-colors">LinkedIn</a></li>
               <li><a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-soft transition-colors">GitHub</a></li>
-              <li><a href="mailto:hello@aureliainnovators.com" className="hover:text-blue-soft transition-colors">hello@aureliainnovators.com</a></li>
+              <li><a href="mailto:hello@aureliainnovatives.com" className="hover:text-blue-soft transition-colors">hello@aureliainnovatives.com</a></li>
             </ul>
           </div>
         </div>
 
         <div className="pt-8 border-t border-blue-deep flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium">
           <div className="flex items-center gap-2">
-            <span>© {new Date().getFullYear()} Aurelia Innovators</span>
+            <span>© {new Date().getFullYear()} Aurelia Innovatives</span>
             <span className="text-grey-dark">•</span>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <span className="text-grey-dark">•</span>

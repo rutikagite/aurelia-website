@@ -59,7 +59,7 @@ export default function Loader() {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="text-3xl font-heading font-bold tracking-tight text-navy"
             >
-              Aurelia Innovators
+              Aurelia Innovatives
             </motion.div>
           )}
         </div>

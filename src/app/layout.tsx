@@ -14,8 +14,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Aurelia Innovators — AI Development, Consultancy & Resource Augmentation",
-  description: "Aurelia Innovators builds production AI systems, advises on AI strategy, and provides vetted AI engineers for enterprise teams. Pune, India. Available globally.",
+  title: "Aurelia Innovatives — AI Development, Consultancy & Resource Augmentation",
+  description: "Aurelia Innovatives builds production AI systems, advises on AI strategy, and provides vetted AI engineers for enterprise teams. Pune, India. Available globally.",
 };
 
 export default function RootLayout({

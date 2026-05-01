@@ -28,7 +28,7 @@ const PRODUCTS = [
     subLabel: "AI-Powered Business Intelligence",
     title: "Analytics Intelligence Platform",
     desc: "Transforms raw data into clear, actionable intelligence — connecting signal detection, correlation analysis, and predictive insights.",
-    link: "https://aureliainnovators.com/products/analytics",
+    link: "https://aureliainnovatives.com/products/analytics",
     image: "/images/product_analytics.png",
   },
 ];
