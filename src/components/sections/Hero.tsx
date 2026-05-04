@@ -1,48 +1,94 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 
+const SIGNALS = [
+  "Production AI Systems",
+  "Resilient RAG Pipelines",
+  "Embedded Expert Teams",
+];
+
 export default function Hero() {
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      setMousePos({ x, y });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
-    <section id="top" className="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-transparent">
-      {/* BACKGROUND */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-transparent"></div>
+    <section
+      id="top"
+      ref={containerRef}
+      className="relative flex min-h-[760px] w-full items-center justify-center overflow-hidden pt-28 bg-[#F8FAFC]"
+    >
+      {/* Dynamic Background Spotlight */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none opacity-[0.45] transition-opacity duration-1000"
+        style={{
+          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(86,145,255,0.18) 0%, rgba(56,189,248,0.08) 25%, transparent 60%)`
+        }}
+      />
+
+      <div className="hero-grid mesh-shift absolute inset-0 opacity-70" />
+
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div
+          className="ambient-blob absolute left-[-8%] top-[6%] h-[20rem] w-[20rem] rounded-full opacity-80 blur-3xl md:h-[28rem] md:w-[28rem]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(86,145,255,0.28) 0%, rgba(86,145,255,0) 72%)",
+          }}
+        />
+        <div
+          className="ambient-blob absolute right-[-10%] top-[20%] h-[22rem] w-[22rem] rounded-full opacity-70 blur-3xl md:h-[30rem] md:w-[30rem]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(56,189,248,0.24) 0%, rgba(56,189,248,0) 72%)",
+            animationDelay: "-6s",
+          }}
+        />
+        <div className="absolute inset-x-0 top-[18%] h-px bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-80" />
       </div>
 
-      {/* CONTENT */}
-      <div className="container mx-auto px-6 max-w-7xl relative z-10 flex flex-col items-center text-center mt-16">
-        {/* Badge */}
+
+      <div className="grid-container relative z-10 flex flex-col items-center text-center">
         <div
           data-anim
           style={{ transitionDelay: "100ms" }}
-          className="inline-flex items-center px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-sm font-bold tracking-wide mb-8 uppercase backdrop-blur-sm"
+          className="pulse-border glass-card mb-8 inline-flex items-center rounded-full px-5 py-2 text-xs font-bold uppercase tracking-[0.26em] text-blue-brand"
         >
-          AI Development Partner
+          Intelligence Engineering Partner
         </div>
 
-        {/* Heading — was text-navy (dark), now text-white */}
         <h1
           data-anim
           style={{ transitionDelay: "250ms" }}
-          className="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold tracking-tight text-white max-w-5xl leading-[1.1] mb-8"
+          className="max-w-5xl leading-[1.02] text-navy"
         >
-          AI That&apos;s Built to Be{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">
-            Deployed
-          </span>,
+          AI That&apos;s Built to Move
           <br className="hidden md:block" />
-          Not Demoed.
+          From <span className="bg-gradient-to-r from-blue-brand via-sky-500 to-cyan-400 bg-clip-text text-transparent">Vision to Deployment</span>.
         </h1>
 
-        {/* Subheading — was text-grey-dark (too dark), now text-slate-300 */}
         <p
           data-anim
           style={{ transitionDelay: "400ms" }}
-          className="text-lg md:text-2xl text-slate-300 max-w-2xl mb-12 font-medium leading-relaxed"
+          className="mb-12 max-w-2xl text-lg font-medium leading-relaxed text-slate-600 md:text-xl"
         >
-          AI services, consultancy, and execution support{" "}
-          <br className="hidden sm:block" />
-          for teams building with AI.
+          We architect mission-critical AI systems for enterprises that
+          require production-grade reliability and technical excellence.
         </p>
 
         <div
@@ -50,24 +96,36 @@ export default function Hero() {
           style={{ transitionDelay: "550ms" }}
           className="flex flex-col sm:flex-row items-center gap-4"
         >
-          {/* Primary CTA — bg-navy was dark on dark; use bg-blue-600 */}
-          <Link
-            href="#services"
-            className="group inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-blue-600 rounded-full hover:bg-blue-500 transition-all duration-300 shadow-xl hover:shadow-blue-500/40 hover:-translate-y-0.5 w-full sm:w-auto"
-          >
-            Explore Our Services
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <Link href="#services" className="button-primary w-full sm:w-auto">
+            Explore Services
+            <ArrowRight className="ml-2 w-5 h-5" />
           </Link>
 
-          {/* Secondary CTA — glass with visible border */}
           <Link
-            href="#consultancy"
-            className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white border border-white/20 bg-white/8 backdrop-blur-sm hover:bg-white/15 transition-all duration-300 rounded-full w-full sm:w-auto hover:shadow-lg hover:border-white/40"
+            href="#contact"
+            className="glass-card inline-flex w-full items-center justify-center rounded-lg border border-white/70 px-8 py-4 text-base font-bold text-navy transition-all duration-200 hover:shadow-sm sm:w-auto"
           >
-            View Consultancy
+            Talk to an Expert
           </Link>
         </div>
+
+        <div
+          data-anim
+          style={{ transitionDelay: "700ms" }}
+          className="mt-16 flex flex-wrap items-center justify-center gap-3"
+        >
+          {SIGNALS.map((signal) => (
+            <div
+              key={signal}
+              className="glass-card rounded-full px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-slate-600"
+            >
+              {signal}
+            </div>
+          ))}
+        </div>
       </div>
+
+
     </section>
   );
 }

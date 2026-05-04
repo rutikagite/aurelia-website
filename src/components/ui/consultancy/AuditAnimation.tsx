@@ -37,10 +37,10 @@ export default function TerminalAnimation() {
       tl.fromTo(
         verdictRef.current,
         { opacity: 0, scale: 0.8 },
-        { 
-          opacity: 1, 
-          scale: 1, 
-          duration: 0.5, 
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
           ease: "back.out(2)",
           onComplete: () => {
             gsap.to(verdictRef.current, {
@@ -63,7 +63,7 @@ export default function TerminalAnimation() {
     <div ref={containerRef} className="w-full h-full bg-white rounded-xl overflow-hidden flex flex-col font-mono text-[10px] relative border border-slate-200 shadow-inner">
       {/* Subtle Grid Overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:20px_20px]" />
-      
+
       {/* Terminal Header */}
       <div className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 border-b border-slate-200">
         <div className="w-2 h-2 rounded-full bg-[#ff5f56]" />
@@ -80,9 +80,9 @@ export default function TerminalAnimation() {
               <div className="flex items-center gap-3">
                 <span className="text-blue-600 font-bold w-10">{line.label}:</span>
                 <div className="flex-1 h-2 bg-slate-100 rounded-sm overflow-hidden relative">
-                  <div 
-                    className="h-full bg-blue-500/80" 
-                    style={{ width: `${line.value}%` }} 
+                  <div
+                    className="h-full bg-blue-500/80"
+                    style={{ width: `${line.value}%` }}
                   />
                   <span className="absolute right-1 top-1/2 -translate-y-1/2 text-[7px] text-slate-500 font-bold">
                     {line.value}%
@@ -101,7 +101,7 @@ export default function TerminalAnimation() {
         ))}
 
         {/* Verdict Box */}
-        <div 
+        <div
           ref={verdictRef}
           className="absolute bottom-4 left-4 right-4 p-3 bg-red-50/80 border border-red-200 rounded flex items-center justify-between shadow-sm"
         >

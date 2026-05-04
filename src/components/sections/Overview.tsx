@@ -3,68 +3,75 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Activity, BrainCircuit, Users, Boxes } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const CARDS = [
   {
     id: "01",
-    title: "AI Development Services",
-    body: "End-to-end AI engineering. Agentic systems, LLM fine-tuning, LangChain, GenAI — built production-ready.",
-    cta: "Explore services",
+    title: "AI Development",
+    body: "Production-grade agentic systems and custom LLM integrations.",
+    cta: "Explore Services",
     href: "#services",
-    color: "bg-blue-brand",
+    icon: <BrainCircuit className="w-6 h-6" />,
+    color: "text-blue-brand",
+    bg: "bg-blue-50",
   },
   {
     id: "02",
-    title: "AI Consultancy",
-    body: "Strategic AI advisory. We map your business to the right AI architecture before a single line is written.",
-    cta: "View consultancy",
+    title: "Strategic Advisory",
+    body: "Expert consultancy to architect your organization's AI roadmap.",
+    cta: "View Strategy",
     href: "#consultancy",
-    color: "bg-blue-soft",
+    icon: <Activity className="w-6 h-6" />,
+    color: "text-blue-brand",
+    bg: "bg-blue-50",
   },
   {
     id: "03",
-    title: "Resource Augmentation",
-    body: "Vetted AI engineers, on-site or remote. Your team, extended with specialists who ship.",
-    cta: "See resources",
+    title: "Talent Solutions",
+    body: "Vetted AI engineers embedded directly into your technical team.",
+    cta: "Request Talent",
     href: "#resources",
-    color: "bg-blue-deep",
+    icon: <Users className="w-6 h-6" />,
+    color: "text-blue-brand",
+    bg: "bg-blue-50",
   },
   {
     id: "04",
-    title: "AI Products",
-    body: "Purpose-built AI products — analytics intelligence, AI readiness assessments, and more.",
-    cta: "See products",
+    title: "Software Products",
+    body: "Proprietary IP built to accelerate your data intelligence.",
+    cta: "See Products",
     href: "#products",
-    color: "bg-blue-mid",
+    icon: <Boxes className="w-6 h-6" />,
+    color: "text-blue-brand",
+    bg: "bg-blue-50",
   },
 ];
 
 export default function Overview() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!trackRef.current) return;
 
     const track = trackRef.current;
+    // Calculate width of one full set (1/4 of the total content since we duplicate 4 times)
+    const setWidth = track.scrollWidth / 4;
 
-    const totalWidth = track.scrollWidth / 2;
-
-    const tl = gsap.fromTo(
+    const animation = gsap.fromTo(
       track,
       { x: 0 },
       {
-        x: -totalWidth,
-        duration: 40,
+        x: -setWidth,
+        duration: 30,
         ease: "none",
         repeat: -1,
       }
     );
 
-    const pause = () => tl.pause();
-    const play = () => tl.play();
+    const pause = () => animation.pause();
+    const play = () => animation.play();
 
     track.addEventListener("mouseenter", pause);
     track.addEventListener("mouseleave", play);
@@ -72,65 +79,61 @@ export default function Overview() {
     return () => {
       track.removeEventListener("mouseenter", pause);
       track.removeEventListener("mouseleave", play);
-      tl.kill();
+      animation.kill();
     };
   }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className="py-24 bg-white overflow-hidden border-t border-blue-wash"
-    >
-      <div className="container mx-auto px-6 max-w-7xl mb-12">
-        <h2 className="text-3xl font-extrabold text-navy tracking-tight">
-          What we do
-        </h2>
+    <section className="py-16 md:py-24 bg-white overflow-hidden border-t border-slate-100">
+      <div className="grid-container mb-16">
+        <div className="max-w-3xl">
+          <div className="text-blue-brand font-bold tracking-widest uppercase text-xs mb-4">Our Ecosystem</div>
+          <h2 className="text-navy font-black tracking-tighter">
+            Architecting the Future of Enterprise Intelligence.
+          </h2>
+        </div>
       </div>
 
       <div className="relative w-full">
+        {/* Gradients for smooth fade out at edges */}
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
         <div
           ref={trackRef}
-          className="flex gap-5 px-6 w-max will-change-transform"
+          className="flex gap-6 w-max will-change-transform"
         >
-          {[...CARDS, ...CARDS].map((card, idx) => (
+          {/* We duplicate 4 times to ensure no gaps on high-res monitors */}
+          {[...CARDS, ...CARDS, ...CARDS, ...CARDS].map((card, idx) => (
             <div
               key={`${card.id}-${idx}`}
-              className="group relative w-[270px] h-[220px] shrink-0 bg-blue-wash/50 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-blue-pale"
+              className="group relative w-[320px] h-[240px] shrink-0 bg-slate-50 rounded-3xl border border-slate-200 p-8 flex flex-col justify-between hover:border-blue-brand/30 hover:shadow-xl transition-all duration-500"
             >
-              {/* Top border accent */}
-              <div
-                className={cn(
-                  "absolute top-0 left-0 right-0 h-1",
-                  card.color
-                )}
-              />
-
-              {/* Dot accent */}
-              <div
-                className={cn(
-                  "absolute top-5 right-5 w-2.5 h-2.5 rounded-full",
-                  card.color
-                )}
-              />
-
-              <div className="p-6 h-full flex flex-col justify-between relative z-10 transition-transform duration-500 group-hover:-translate-y-2">
-                <h3 className="font-bold text-xl text-navy leading-tight">
+              <div className="flex flex-col gap-4">
+                <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-500 group-hover:bg-blue-brand group-hover:text-white", card.bg, card.color)}>
+                  {card.icon}
+                </div>
+                <h3 className="text-xl font-bold text-navy leading-tight">
                   {card.title}
                 </h3>
-                <p className="text-sm text-grey-dark font-medium leading-relaxed transition-all duration-300 group-hover:opacity-0 group-hover:-translate-y-2">
+                <p className="text-sm text-slate-600 font-medium leading-relaxed group-hover:text-navy transition-colors">
                   {card.body}
                 </p>
               </div>
 
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-white/70 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 flex items-center justify-center">
+              <div className="mt-auto">
                 <Link
                   href={card.href}
-                  className="flex items-center gap-2 px-6 py-3 bg-navy text-white rounded-full font-bold text-sm translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 hover:bg-blue-brand hover:shadow-lg"
+                  className="inline-flex items-center gap-2 text-blue-brand font-bold text-xs uppercase tracking-widest hover:text-navy transition-colors"
                 >
                   {card.cta}
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                 </Link>
+              </div>
+
+              {/* Decorative Number */}
+              <div className="absolute top-8 right-8 text-4xl font-black text-slate-200 group-hover:text-blue-50 transition-colors pointer-events-none">
+                {card.id}
               </div>
             </div>
           ))}

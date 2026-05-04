@@ -38,7 +38,7 @@ function MarqueeRow({ items, direction = "left", speed = 40 }: { items: typeof C
     if (!rowRef.current) return;
 
     const row = rowRef.current;
-    const totalWidth = row.scrollWidth / 2;
+    const totalWidth = row.scrollWidth / 4;
 
     const animation = gsap.to(row, {
       x: direction === "left" ? -totalWidth : 0,
@@ -56,7 +56,8 @@ function MarqueeRow({ items, direction = "left", speed = 40 }: { items: typeof C
   return (
     <div className="overflow-hidden py-4">
       <div ref={rowRef} className="flex gap-4 whitespace-nowrap w-fit">
-        {[...items, ...items].map((item, i) => (
+        {[...items, ...items, ...items, ...items].map((item, i) => (
+
           <div
             key={i}
             className="flex items-center gap-3 px-6 py-4 bg-white border border-blue-pale rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:border-blue-brand/50 hover:bg-blue-wash group shrink-0"
@@ -119,74 +120,67 @@ export default function Services() {
   const row1 = CAPABILITIES.slice(0, 7);
   const row2 = CAPABILITIES.slice(7, 13);
   const row3 = CAPABILITIES.slice(13);
+
   return (
     <section
       id="services"
       ref={sectionRef}
-      className="py-24 bg-off-white relative overflow-hidden"
+      className="py-16 md:py-24 bg-[#E2E8F0] relative overflow-hidden"
     >
-      {/* Dynamic Background Spotlight */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-50 transition-opacity duration-1000"
-        style={{
-          background: `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, rgba(42, 109, 217, 0.05), transparent 80%)`,
-        }}
-      />
+      {/* Subtle Background Accent */}
+      <div className="absolute top-0 left-0 w-full h-full bg-white opacity-50 pointer-events-none" />
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="text-center max-w-4xl mx-auto mb-20">
-          <div className="text-blue-brand font-bold tracking-widest uppercase text-sm mb-6">AI Development Services</div>
-          <h2 className="text-4xl md:text-6xl font-heading font-extrabold text-navy tracking-tight mb-8">
-            From Idea to Production AI.
+      <div className="grid-container relative z-10">
+        <div className="max-w-3xl mb-20">
+          <div className="text-blue-brand font-bold tracking-widest uppercase text-xs mb-4">Core Capabilities</div>
+          <h2 className="text-navy mb-8 font-black tracking-tighter">
+            AI Engineering for the Production Environment.
           </h2>
-          <p className="text-xl md:text-2xl text-grey-dark font-medium">
-            We handle the full engineering lifecycle<br className="hidden md:block" />
-            so your team focuses on outcomes, not infrastructure.
+          <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed">
+            We specialize in building the infrastructure and orchestration layers
+            required to turn experimental models into mission-critical software.
           </p>
         </div>
 
         {/* PROCESS STEPS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20 md:mb-32">
           {PROCESS_STEPS.map((step, i) => {
             const Icon = step.icon.type;
 
             return (
               <div
                 key={i}
-                className="group relative overflow-hidden rounded-3xl border border-blue-pale bg-white p-8 transition-all duration-300 ease-out shadow-md hover:shadow-2xl hover:-translate-y-1"
+                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 transition-all duration-300 hover:border-blue-brand/50 hover:shadow-xl hover:-translate-y-1"
               >
-                {/* Big background icon */}
-                <div className="pointer-events-none absolute -right-6 -top-6 select-none text-navy opacity-[0.06] transition-all duration-700 group-hover:opacity-[0.12] group-hover:scale-110 group-hover:-rotate-12">
-                  <Icon size={120} strokeWidth={1} />
-                </div>
-
                 {/* Content */}
                 <div className="relative z-10 h-full flex flex-col">
                   <div className="mb-6">
-                    <div className="inline-flex p-3 rounded-2xl bg-blue-wash text-blue-brand transition-all duration-300 group-hover:scale-110 group-hover:bg-blue-brand group-hover:text-white shadow-sm">
+                    <div className="inline-flex p-3 rounded-xl bg-blue-50 text-blue-brand group-hover:bg-blue-brand group-hover:text-white transition-all duration-300">
                       {step.icon}
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-heading font-bold leading-tight text-navy mb-4">
+                  <h3 className="text-xl font-bold leading-tight text-navy mb-4">
                     {step.title}
                   </h3>
 
-                  <p className="text-base leading-relaxed text-grey-dark group-hover:text-black transition-colors duration-300">
+                  <p className="text-sm leading-relaxed text-slate-600">
                     {step.desc}
                   </p>
                 </div>
 
-                {/* Hover overlay */}
-                <div className="pointer-events-none absolute inset-0 opacity-0 bg-gradient-to-br from-blue-soft/10 to-transparent transition-opacity duration-300 group-hover:opacity-100" />
+                {/* Subtle Decorative Icon */}
+                <div className="absolute -right-4 -bottom-4 text-navy opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+                  <Icon size={100} strokeWidth={1} />
+                </div>
               </div>
             );
           })}
         </div>
 
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-navy tracking-tight">
-            Our Technical Expertise.
+        <div className="max-w-3xl mb-12">
+          <h2 className="text-navy font-black tracking-tighter text-3xl">
+            Technical Excellence.
           </h2>
         </div>
       </div>
@@ -194,18 +188,16 @@ export default function Services() {
       {/* MARQUEE SECTION */}
       <div className="relative py-10">
         {/* Background Gradients for fade effect */}
-        <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-off-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-off-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
 
         <div className="flex flex-col gap-2">
-          <MarqueeRow items={row1} direction="left" speed={30} />
-          <MarqueeRow items={row2} direction="right" speed={35} />
-          <MarqueeRow items={row3} direction="left" speed={25} />
+          <MarqueeRow items={row1} direction="left" speed={40} />
+          <MarqueeRow items={row2} direction="right" speed={45} />
+          <MarqueeRow items={row3} direction="left" speed={35} />
         </div>
       </div>
-
-      {/* Subtle Background Elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-blue-pale/30 rounded-full blur-[120px] pointer-events-none z-0" />
     </section>
   );
 }
+

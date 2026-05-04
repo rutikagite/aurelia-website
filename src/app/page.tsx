@@ -1,4 +1,3 @@
-import AnimatedBackground from "@/components/ui/AnimatedBackground";
 import Loader from "@/components/ui/Loader";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
@@ -13,8 +12,7 @@ import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen">
-      <AnimatedBackground />
+    <main className="site-shell relative min-h-screen bg-[#F8FAFC]">
       <Loader />
       <Navbar />
       <Hero />

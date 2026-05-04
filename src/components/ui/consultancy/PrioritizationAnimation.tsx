@@ -33,7 +33,7 @@ export default function RadarAnimation() {
 
       // Initial points (center)
       const startPoints = DIMENSIONS.map(() => `${centerX},${centerY}`).join(" ");
-      
+
       // Target points based on values
       const targetPoints = DIMENSIONS.map((d, i) => {
         const angle = (i * 2 * Math.PI) / DIMENSIONS.length - Math.PI / 2;
@@ -80,8 +80,8 @@ export default function RadarAnimation() {
 
   return (
     <div ref={containerRef} className="w-full aspect-square max-h-[280px] relative font-mono text-[10px] flex items-center justify-center bg-white rounded-xl border border-slate-100 shadow-inner overflow-hidden">
-       {/* Background Grid */}
-       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:10px_10px]" />
+      {/* Background Grid */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] bg-[size:10px_10px]" />
 
       <svg viewBox="0 0 200 200" className="w-full h-full overflow-visible p-4">
         {/* Radar Background Grid */}

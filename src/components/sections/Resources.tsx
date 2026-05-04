@@ -158,7 +158,7 @@ export default function Resources() {
   }, []);
 
   return (
-    <section id="resources" className="py-10 lg:py-12 bg-off-white relative overflow-hidden" ref={containerRef}>
+    <section id="resources" className="py-16 md:py-[120px] bg-white relative overflow-hidden" ref={containerRef}>
       {/* Background Soft Gradients */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
         <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-blue-wash rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
@@ -169,23 +169,23 @@ export default function Resources() {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-8">
 
           {/* LEFT: STICKY INFO */}
-          <div className="w-full lg:w-5/12 relative">
+          <div className="w-full lg:w-1/2 relative">
             <div className="lg:sticky lg:top-40 flex flex-col items-start text-left mb-8 lg:mb-0">
-              <div className="text-blue-mid font-bold tracking-widest uppercase text-sm mb-6 flex items-center gap-2">
+              <div className="text-blue-brand font-bold tracking-widest uppercase text-xs mb-6 flex items-center gap-2">
                 <Activity className="w-4 h-4" />
                 Resource Augmentation
               </div>
-              <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-navy tracking-tight mb-6 leading-[1.15]">
+              <h2 className="font-black text-navy tracking-tighter mb-8 leading-[1.05]">
                 The AI Talent You Need.<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-brand to-blue-soft">When You Need It.</span>
+                <span className="text-blue-brand">When You Need It.</span>
               </h2>
-              <p className="text-lg text-grey-dark font-medium mb-10 max-w-md">
+              <p className="text-lg text-slate-600 font-medium mb-10 max-w-md">
                 Hire dedicated AI engineers who integrate with your team — on-site or remote, for sprints or long-term builds.
               </p>
 
               <a
                 href="#contact"
-                className="group inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-navy rounded-2xl hover:bg-blue-brand transition-all duration-300 shadow-xl hover:shadow-blue-brand/30 hover:-translate-y-0.5"
+                className="button-primary px-8 py-4 shadow-xl shadow-blue-brand/20"
               >
                 Request Talent
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -193,50 +193,28 @@ export default function Resources() {
             </div>
           </div>
 
-          {/* RIGHT: SCROLLING BLOCKS + SYSTEM NODE */}
-          <div className="w-full lg:w-7/12 relative flex">
-
-            {/* SCROLLING BLOCKS */}
-            <div className="w-full lg:w-2/3 flex flex-col gap-8 lg:gap-12 py-8 lg:py-[10vh] relative z-10 lg:pr-8">
+          {/* RIGHT: SCROLLING BLOCKS */}
+          <div className="w-full lg:w-1/2 relative">
+            <div className="w-full flex flex-col gap-8 lg:gap-12 py-8 lg:py-[5vh] relative z-10">
               {MODELS.map((model, i) => (
                 <div key={model.id} className="relative">
                   <div
                     ref={(el) => { if (el) blocksRef.current[i] = el; }}
-                    className="glass-card bg-white/40 backdrop-blur-xl border border-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_40px_rgb(37,99,235,0.08)] transition-shadow duration-500 relative z-20 group flex flex-col sm:flex-row items-start sm:items-center gap-6"
+                    className="bg-white border border-slate-200 p-8 rounded-3xl shadow-sm hover:shadow-xl hover:border-blue-brand/30 transition-all duration-300 relative z-20 group flex flex-col sm:flex-row items-start sm:items-center gap-6"
                   >
                     <div className={cn("shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center", model.bg, model.color)}>
                       <model.icon className="w-8 h-8" />
                     </div>
                     <div>
                       <h3 className="font-heading font-bold text-xl text-navy mb-2">{model.title}</h3>
-                      <p className="text-grey-dark font-medium text-sm leading-relaxed">{model.desc}</p>
+                      <p className="text-slate-600 font-medium text-sm leading-relaxed">{model.desc}</p>
                     </div>
-
-                    {/* Specialized Animations inside blocks */}
-                    {i === 1 && (
-                      <div className="absolute top-6 right-6 w-3 h-3 rounded-full bg-blue-brand animate-pulse shadow-[0_0_12px_rgba(42,109,217,0.8)]" />
-                    )}
-                    {i === 2 && (
-                      <div className="absolute bottom-0 left-8 right-8 h-1 bg-blue-wash rounded-t-lg overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="h-full bg-blue-brand w-full origin-left animate-[progress_2s_ease-in-out_infinite]" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* SVG Connection Line (Desktop Only) */}
-                  <div className="hidden lg:block absolute top-1/2 left-[calc(100%-1rem)] w-[calc(50%+2rem)] h-[2px] -translate-y-1/2 z-0 overflow-hidden">
-                    <div
-                      ref={(el) => { if (el) linesRef.current[i] = el; }}
-                      className={cn("w-full h-full bg-gradient-to-r to-transparent",
-                        i === 0 ? "from-blue-soft" : i === 1 ? "from-blue-soft" : "from-blue-soft"
-                      )}
-                    />
                   </div>
                 </div>
               ))}
             </div>
-
           </div>
+
         </div>
       </div>
 
