@@ -5,6 +5,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import AIXLVisual from "../ui/products/AIXLVisual";
+import VibelyticsVisual from "../ui/products/VibelyticsVisual";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,13 +66,13 @@ export default function Products() {
                 zIndex: index + 10,
               }}
             >
-              <div className="bg-white p-8 lg:p-12 flex flex-col lg:flex-row gap-12 items-center shadow-[0_40px_80px_-15px_rgba(0,0,0,0.15)] border border-slate-200 rounded-3xl group transition-all duration-500">
+              <div className="bg-white p-8 lg:p-16 flex flex-col lg:flex-row gap-12 items-stretch min-h-[600px] shadow-[0_40px_80px_-15px_rgba(0,0,0,0.15)] border border-slate-200 rounded-[40px] group transition-all duration-500">
                 {/* Text Area */}
-                <div className="flex-1">
+                <div className="flex-1 flex flex-col justify-center">
                   <div className="text-blue-brand font-bold text-xs uppercase tracking-widest mb-4">
                     {prod.subLabel}
                   </div>
-                  <h3 className="text-3xl lg:text-4xl font-bold text-navy mb-6 tracking-tighter">
+                  <h3 className="text-3xl lg:text-5xl font-black text-navy mb-6 tracking-tighter leading-tight">
                     {prod.title}
                   </h3>
                   <p className="text-lg text-slate-600 font-medium mb-10 leading-relaxed max-w-xl">
@@ -80,7 +82,7 @@ export default function Products() {
                   {prod.modules && (
                     <div className="grid grid-cols-2 gap-4 mb-10">
                       {prod.modules.map((mod) => (
-                        <div key={mod.name} className="p-4 bg-slate-50 border border-slate-100 rounded-xl group-hover:border-blue-brand/50 transition-colors">
+                        <div key={mod.name} className="p-4 bg-slate-50 border border-slate-100 rounded-2xl group-hover:border-blue-brand/50 transition-colors">
                           <div className="text-sm font-bold text-navy mb-1">{mod.name}</div>
                           <div className="text-[11px] text-slate-500 font-medium leading-tight">{mod.desc}</div>
                         </div>
@@ -88,34 +90,29 @@ export default function Products() {
                     </div>
                   )}
 
-                  <a
-                    href={prod.link}
-                    className="button-primary px-8 py-4 inline-flex items-center justify-center font-bold text-white bg-blue-brand rounded-full hover:bg-navy transition-all duration-300 shadow-lg"
-                  >
-                    Explore {prod.title}
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </a>
+                  <div className="mt-auto">
+                    <a
+                      href={prod.link}
+                      className="button-primary px-8 py-4 inline-flex items-center justify-center font-bold text-white bg-blue-brand rounded-full hover:bg-navy transition-all duration-300 shadow-lg"
+                    >
+                      Explore {prod.title}
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </a>
+                  </div>
                 </div>
 
                 {/* Visual Area */}
-                <div className="flex-1 w-full lg:w-auto aspect-video rounded-2xl bg-slate-50 border border-slate-200 overflow-hidden relative shadow-lg group-hover:shadow-xl transition-shadow duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-50" />
-                  <div className="h-full w-full flex items-center justify-center p-8">
-                    <div className="w-full h-full bg-white rounded-xl border border-slate-100 shadow-inner flex flex-col">
-                      <div className="h-8 border-b border-slate-100 flex items-center px-4 gap-2">
-                        <div className="w-2 h-2 rounded-full bg-slate-200" />
-                        <div className="w-2 h-2 rounded-full bg-slate-200" />
-                        <div className="w-2 h-2 rounded-full bg-slate-200" />
-                      </div>
-                      <div className="flex-1 p-6 flex flex-col gap-4">
-                        <div className="h-2 w-1/3 bg-slate-200 rounded" />
-                        <div className="h-2 w-full bg-slate-100 rounded" />
-                        <div className="h-2 w-4/5 bg-slate-100 rounded" />
-                        <div className="mt-auto h-24 w-full bg-blue-50 border border-blue-100 rounded-lg" />
-                      </div>
-                    </div>
+                <div className="flex-1 w-full lg:w-auto aspect-video rounded-3xl overflow-hidden relative shadow-2xl border border-slate-200 group-hover:shadow-blue-900/20 transition-all duration-500 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-slate-900" />
+                  <div className="relative z-10 w-full h-full">
+                    {prod.id === "aixl" ? (
+                      <AIXLVisual />
+                    ) : (
+                      <VibelyticsVisual />
+                    )}
                   </div>
                 </div>
+
               </div>
             </div>
           ))}

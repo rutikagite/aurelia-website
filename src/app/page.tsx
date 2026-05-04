@@ -9,10 +9,12 @@ import Products from "@/components/sections/Products";
 import WhyAurelia from "@/components/sections/WhyAurelia";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import PlexusBackground from "@/components/ui/PlexusBackground";
 
 export default function Home() {
   return (
-    <main className="site-shell relative min-h-screen bg-[#F8FAFC]">
+    <main className="site-shell relative min-h-screen">
+      <PlexusBackground />
       <Loader />
       <Navbar />
       <Hero />

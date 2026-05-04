@@ -151,3 +151,26 @@ html:not(.ready) [data-anim] {
 [data-anim] {
   transition: opacity 400ms var(--ease-standard), transform 400ms var(--ease-standard);
 }
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 7s infinite alternate;
+}
+
+.hero-grid {
+  background-image: 
+    linear-gradient(to right, rgba(148, 163, 184, 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.hero-grid-fade {
+  -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 95%);
+  mask-image: linear-gradient(to bottom, black 10%, transparent 95%);
+}

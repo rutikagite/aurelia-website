@@ -31,10 +31,8 @@ export default function Consultancy() {
   return (
     <section
       id="consultancy"
-      className="py-16 md:py-24 bg-[#F8FAFC] relative overflow-hidden"
+      className="py-16 md:py-24 bg-[#F8FAFC]/60 backdrop-blur-md relative overflow-hidden"
     >
-      {/* Background subtle glow */}
-      <div className="absolute top-0 left-0 w-full h-full bg-blue-50/20 blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         {/* Section header */}
