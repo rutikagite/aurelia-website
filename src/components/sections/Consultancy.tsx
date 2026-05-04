@@ -31,7 +31,7 @@ export default function Consultancy() {
   return (
     <section
       id="consultancy"
-      className="py-16 md:py-24 bg-[#F8FAFC]/60 backdrop-blur-md relative overflow-hidden"
+      className="py-16 md:py-24 bg-[#F8FAFC]/60 backdrop-md relative overflow-hidden"
     >
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">

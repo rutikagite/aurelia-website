@@ -4,7 +4,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-16 md:py-24 overflow-hidden bg-[#E2E8F0]/60 backdrop-blur-md"
+      className="relative py-16 md:py-24 overflow-hidden bg-[#E2E8F0]/60 backdrop-md"
     >
 
       <div className="grid-container relative z-10">

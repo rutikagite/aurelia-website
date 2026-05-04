@@ -28,9 +28,9 @@ const PRODUCTS = [
   {
     id: "vibelytics",
     subLabel: "Natural Language Intelligence",
-    title: "Vibelytics",
+    title: "Analytics",
     desc: "The next generation of data analytics. Query your complex datasets using natural language to extract instant, high-fidelity insights and dashboards.",
-    link: "https://aureliainnovatives.com/products/vibelytics",
+    link: "https://aureliainnovatives.com/products/analytics",
     image: "/images/product_analytics.png",
   },
 ];
