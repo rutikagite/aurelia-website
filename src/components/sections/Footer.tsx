@@ -33,7 +33,7 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-6 font-heading tracking-widest uppercase text-xs">Ecosystem</h4>
             <ul className="flex flex-col gap-4 text-sm">
               <li><a href="https://aixlacademy.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-brand transition-colors">AIXL Academy</a></li>
-              <li><Link href="#products" className="hover:text-blue-brand transition-colors">Vibelytics</Link></li>
+              <li><Link href="#products" className="hover:text-blue-brand transition-colors">Analytics</Link></li>
               <li><Link href="#blog" className="hover:text-blue-brand transition-colors">Technical Blog</Link></li>
               <li><Link href="#careers" className="hover:text-blue-brand transition-colors">Careers</Link></li>
             </ul>
